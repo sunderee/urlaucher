@@ -34,6 +34,26 @@ val smsBody = "Test SMS message body"
 launcher.sendSMSMessage(phoneNumber, smsBody)
 ```
 
+### Example
+
+Screen recordings of the sample application (which you can run on your own as well).
+
+#### URL launching
+
+![URL launcher](./assets/url_launcher.gif)
+
+#### Email client launching
+
+![Email client launcher](./assets/email_launcher.gif)
+
+#### Phone dialer launching
+
+![Phone dialer launcher](./assets/phone_launcher.gif)
+
+#### Email client launching
+
+![SMS client launcher](./assets/sms_launcher.gif)
+
 ## License
 
 Open sourced under MIT license.
