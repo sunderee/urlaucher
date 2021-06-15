@@ -2,6 +2,7 @@ package com.peteralexbizjak.c2surlauncher
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
@@ -42,7 +43,8 @@ class MainActivity : AppCompatActivity() {
                 try {
                     launcher.launchURL(binding.activityMainURLInput.text.toString())
                 } catch (e: Exception) {
-                    newSnackBar(it, "Exception thrown: ${e.localizedMessage}")
+                    newSnackBar(it, "Failed to open URL")
+                    Log.e(this.javaClass.simpleName, e.localizedMessage ?: "")
                 }
             } else {
                 newSnackBar(it, "Only available on Android 11+")
@@ -58,7 +60,8 @@ class MainActivity : AppCompatActivity() {
                 try {
                     launcher.sendEmail(subject, arrayOf(receiver), body)
                 } catch (e: Exception) {
-                    newSnackBar(it, "Exception thrown: ${e.localizedMessage}")
+                    newSnackBar(it, "Failed to send email")
+                    Log.e(this.javaClass.simpleName, e.localizedMessage ?: "")
                 }
             } else {
                 newSnackBar(it, "Only available on Android 11+")
@@ -73,7 +76,8 @@ class MainActivity : AppCompatActivity() {
                     try {
                         launcher.launchPhoneDialer(phoneNumber)
                     } catch (e: Exception) {
-                        newSnackBar(it, "Exception thrown: ${e.localizedMessage}")
+                        newSnackBar(it, "Failed to open phone dialer app")
+                        Log.e(this.javaClass.simpleName, e.localizedMessage ?: "")
                     }
                 } else {
                     val phoneNumber = binding.activityPhoneTextCallInputNumber.text.toString()
@@ -81,7 +85,8 @@ class MainActivity : AppCompatActivity() {
                     try {
                         launcher.sendSMSMessage(phoneNumber, message)
                     } catch (e: Exception) {
-                        newSnackBar(it, "Exception thrown: ${e.localizedMessage}")
+                        newSnackBar(it, "Failed to open SMS client")
+                        Log.e(this.javaClass.simpleName, e.localizedMessage ?: "")
                     }
                 }
             } else {

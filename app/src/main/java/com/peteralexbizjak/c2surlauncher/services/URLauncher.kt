@@ -19,7 +19,9 @@ internal class URLauncher(private val context: Context) {
         if (url.isUrlValid()) {
             val urlLauncherIntent = Intent(ACTION_VIEW, Uri.parse(url)).apply {
                 addCategory(CATEGORY_BROWSABLE)
-                flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_REQUIRE_NON_BROWSER
+                flags = FLAG_ACTIVITY_NEW_TASK or
+                        FLAG_ACTIVITY_REQUIRE_NON_BROWSER or
+                        FLAG_ACTIVITY_REQUIRE_DEFAULT
             }
             context.startActivity(urlLauncherIntent)
         } else {
@@ -66,7 +68,7 @@ internal class URLauncher(private val context: Context) {
         if (phoneNumber.isPhoneNumberValid()) {
             val smsIntent = Intent(ACTION_SENDTO).apply {
                 type = "text/plain"
-                data = Uri.parse("smsto:")
+                data = Uri.parse("smsto:$phoneNumber")
                 putExtra("sms_body", message)
                 addCategory(CATEGORY_BROWSABLE)
                 flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_REQUIRE_NON_BROWSER
