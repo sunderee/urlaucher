@@ -9,8 +9,19 @@ import android.webkit.URLUtil
 import androidx.annotation.RequiresApi
 import java.util.regex.Pattern
 
+/**
+ * URLauncher is a simple single-class solution for launching URLs in default browsers, sending email
+ * messages, making phone calls and sending text (SMS) messages.
+ */
 class URLauncher(private val context: Context) {
 
+    /**
+     * Launch URL in a device's default browser
+     * @param url: an RFC 2396-compliant, encoded URI
+     * @throws ActivityNotFoundException if there isn't any app installed on the device that can
+     * open the URL
+     * @throws URLauncherException if the URL is improperly formatted
+     */
     @RequiresApi(Build.VERSION_CODES.R)
     @Throws(ActivityNotFoundException::class, URLauncherException::class)
     fun launchURL(url: String) {
@@ -29,6 +40,15 @@ class URLauncher(private val context: Context) {
         }
     }
 
+    /**
+     * Launch default email client with pre-filled subject, to (recipient) and email body
+     * @param subject email subject
+     * @param receivers properly formatted emails `Array<String>`
+     * @param body email body
+     * @throws ActivityNotFoundException if there isn't any app installed on the device that can
+     * send emails
+     * @throws URLauncherException if any of the emails is improperly formatted
+     */
     @RequiresApi(Build.VERSION_CODES.R)
     @Throws(ActivityNotFoundException::class, URLauncherException::class)
     fun sendEmail(subject: String, receivers: Array<String>, body: String) {
@@ -50,6 +70,13 @@ class URLauncher(private val context: Context) {
         }
     }
 
+    /**
+     * Launch phone dialer application
+     * @param phoneNumber phone number
+     * @throws ActivityNotFoundException if there isn't any app installed on the device that can
+     * make phone calls
+     * @throws URLauncherException if any of the emails is improperly formatted
+     */
     @RequiresApi(Build.VERSION_CODES.R)
     @Throws(ActivityNotFoundException::class, URLauncherException::class)
     fun launchPhoneDialer(phoneNumber: String) {
@@ -68,6 +95,14 @@ class URLauncher(private val context: Context) {
         }
     }
 
+    /**
+     * Launch text (SMS) client application
+     * @param phoneNumber phone number
+     * @param message SMS text message contents
+     * @throws ActivityNotFoundException if there isn't any app installed on the device that can
+     * send SMS messages
+     * @throws URLauncherException if any of the emails is improperly formatted
+     */
     @RequiresApi(Build.VERSION_CODES.R)
     @Throws(ActivityNotFoundException::class, URLauncherException::class)
     fun sendSMSMessage(phoneNumber: String, message: String) {
