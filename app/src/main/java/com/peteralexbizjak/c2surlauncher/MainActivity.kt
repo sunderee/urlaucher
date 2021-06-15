@@ -1,6 +1,5 @@
 package com.peteralexbizjak.c2surlauncher
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -39,60 +38,47 @@ class MainActivity : AppCompatActivity() {
 
         // Launch URL
         binding.activityMainURLButton.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                try {
-                    launcher.launchURL(binding.activityMainURLInput.text.toString())
-                } catch (e: Exception) {
-                    newSnackBar(it, "Failed to open URL")
-                    Log.e(this.javaClass.simpleName, e.localizedMessage ?: "")
-                }
-            } else {
-                newSnackBar(it, "Only available on Android 11+")
+            try {
+                launcher.launchURL(binding.activityMainURLInput.text.toString())
+            } catch (e: Exception) {
+                newSnackBar(it, "Failed to open URL")
+                Log.e(this.javaClass.simpleName, e.localizedMessage ?: "")
             }
         }
 
         // Send email
         binding.activityMainEmailButton.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                val subject = binding.activityMainEmailInputSubject.text.toString()
-                val receiver = binding.activityMainEmailInputReceiver.text.toString()
-                val body = binding.activityMainEmailInputBody.text.toString()
-                try {
-                    launcher.sendEmail(subject, arrayOf(receiver), body)
-                } catch (e: Exception) {
-                    newSnackBar(it, "Failed to send email")
-                    Log.e(this.javaClass.simpleName, e.localizedMessage ?: "")
-                }
-            } else {
-                newSnackBar(it, "Only available on Android 11+")
+            val subject = binding.activityMainEmailInputSubject.text.toString()
+            val receiver = binding.activityMainEmailInputReceiver.text.toString()
+            val body = binding.activityMainEmailInputBody.text.toString()
+            try {
+                launcher.sendEmail(subject, arrayOf(receiver), body)
+            } catch (e: Exception) {
+                newSnackBar(it, "Failed to send email")
+                Log.e(this.javaClass.simpleName, e.localizedMessage ?: "")
             }
         }
 
         // Open phone call dialer app or SMS client
         binding.activityMainPhoneTextButton.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                if (isPhoneCall) {
-                    val phoneNumber = binding.activityPhoneTextCallInputNumber.text.toString()
-                    try {
-                        launcher.launchPhoneDialer(phoneNumber)
-                    } catch (e: Exception) {
-                        newSnackBar(it, "Failed to open phone dialer app")
-                        Log.e(this.javaClass.simpleName, e.localizedMessage ?: "")
-                    }
-                } else {
-                    val phoneNumber = binding.activityPhoneTextCallInputNumber.text.toString()
-                    val message = binding.activityPhoneTextCallInputBody.text.toString()
-                    try {
-                        launcher.sendSMSMessage(phoneNumber, message)
-                    } catch (e: Exception) {
-                        newSnackBar(it, "Failed to open SMS client")
-                        Log.e(this.javaClass.simpleName, e.localizedMessage ?: "")
-                    }
+            if (isPhoneCall) {
+                val phoneNumber = binding.activityPhoneTextCallInputNumber.text.toString()
+                try {
+                    launcher.launchPhoneDialer(phoneNumber)
+                } catch (e: Exception) {
+                    newSnackBar(it, "Failed to open phone dialer app")
+                    Log.e(this.javaClass.simpleName, e.localizedMessage ?: "")
                 }
             } else {
-                newSnackBar(it, "Only available on Android 11+")
+                val phoneNumber = binding.activityPhoneTextCallInputNumber.text.toString()
+                val message = binding.activityPhoneTextCallInputBody.text.toString()
+                try {
+                    launcher.sendSMSMessage(phoneNumber, message)
+                } catch (e: Exception) {
+                    newSnackBar(it, "Failed to open SMS client")
+                    Log.e(this.javaClass.simpleName, e.localizedMessage ?: "")
+                }
             }
-
         }
     }
 
