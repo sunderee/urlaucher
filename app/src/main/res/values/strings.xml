@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">C2S URLauncher</string>
+    <string name="url">URL</string>
+    <string name="url_title">Launch URL in device\'s default browser</string>
+    <string name="url_action">Launch URL</string>
+    <string name="email_title">Send email via your default email client</string>
+    <string name="subject">Subject</string>
+    <string name="receiver">Receiver (to)</string>
+    <string name="body">Body</string>
+    <string name="email_action">Send email</string>
+    <string name="sms_phone_title">Make a phone call or send an SMS message</string>
+    <string name="phone">Call</string>
+    <string name="text">SMS</string>
+    <string name="phone_number">Phone number</string>
+    <string name="phone_action">Make a phone call</string>
+    <string name="sms_action">Send a text</string>
+</resources>
