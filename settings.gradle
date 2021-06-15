@@ -1,2 +1,3 @@
 rootProject.name = "C2S URLauncher"
 include ':app'
+include ':URLauncher'

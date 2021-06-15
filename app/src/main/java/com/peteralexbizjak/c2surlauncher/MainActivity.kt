@@ -7,7 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.peteralexbizjak.c2surlauncher.databinding.ActivityMainBinding
-import com.peteralexbizjak.c2surlauncher.services.URLauncher
+import com.peteralexbizjak.urlauncher.URLauncher
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
