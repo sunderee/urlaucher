@@ -17,11 +17,10 @@ internal class URLauncher(private val context: Context) {
     @Throws(ActivityNotFoundException::class, URLauncherException::class)
     fun launchURL(url: String) {
         if (url.isUrlValid()) {
-            val urlLauncherIntent = Intent(ACTION_VIEW, Uri.parse(url)).apply {
+            val urlLauncherIntent = Intent(ACTION_VIEW).apply {
+                data = Uri.parse(url)
                 addCategory(CATEGORY_BROWSABLE)
-                flags = FLAG_ACTIVITY_NEW_TASK or
-                        FLAG_ACTIVITY_REQUIRE_NON_BROWSER or
-                        FLAG_ACTIVITY_REQUIRE_DEFAULT
+                flags = FLAG_ACTIVITY_NEW_TASK
             }
             context.startActivity(urlLauncherIntent)
         } else {
