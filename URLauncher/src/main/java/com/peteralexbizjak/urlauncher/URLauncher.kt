@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.webkit.URLUtil
-import androidx.annotation.RequiresApi
 import java.util.regex.Pattern
 
 /**
@@ -22,14 +21,17 @@ class URLauncher(private val context: Context) {
      * open the URL
      * @throws URLauncherException if the URL is improperly formatted
      */
-    @RequiresApi(Build.VERSION_CODES.R)
     @Throws(ActivityNotFoundException::class, URLauncherException::class)
     fun launchURL(url: String) {
         if (url.isUrlValid()) {
             val urlLauncherIntent = Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse(url)
                 addCategory(Intent.CATEGORY_BROWSABLE)
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REQUIRE_DEFAULT
+                } else {
+                    Intent.FLAG_ACTIVITY_NEW_TASK
+                }
             }
             context.startActivity(urlLauncherIntent)
         } else {
@@ -49,7 +51,6 @@ class URLauncher(private val context: Context) {
      * send emails
      * @throws URLauncherException if any of the emails is improperly formatted
      */
-    @RequiresApi(Build.VERSION_CODES.R)
     @Throws(ActivityNotFoundException::class, URLauncherException::class)
     fun sendEmail(subject: String, receivers: Array<String>, body: String) {
         if (receivers.all { it.isEmailValid() }) {
@@ -58,8 +59,11 @@ class URLauncher(private val context: Context) {
                 putExtra(Intent.EXTRA_EMAIL, receivers)
                 putExtra(Intent.EXTRA_SUBJECT, subject)
                 putExtra(Intent.EXTRA_TEXT, body)
-                addCategory(Intent.CATEGORY_BROWSABLE)
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REQUIRE_NON_BROWSER
+                flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REQUIRE_DEFAULT
+                } else {
+                    Intent.FLAG_ACTIVITY_NEW_TASK
+                }
             }
             context.startActivity(emailIntent)
         } else {
@@ -77,14 +81,16 @@ class URLauncher(private val context: Context) {
      * make phone calls
      * @throws URLauncherException if any of the emails is improperly formatted
      */
-    @RequiresApi(Build.VERSION_CODES.R)
     @Throws(ActivityNotFoundException::class, URLauncherException::class)
     fun launchPhoneDialer(phoneNumber: String) {
         if (phoneNumber.isPhoneNumberValid()) {
             val phoneIntent = Intent(Intent.ACTION_DIAL).apply {
                 data = Uri.parse("tel:$phoneNumber")
-                addCategory(Intent.CATEGORY_BROWSABLE)
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REQUIRE_NON_BROWSER
+                flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REQUIRE_DEFAULT
+                } else {
+                    Intent.FLAG_ACTIVITY_NEW_TASK
+                }
             }
             context.startActivity(phoneIntent)
         } else {
@@ -103,16 +109,17 @@ class URLauncher(private val context: Context) {
      * send SMS messages
      * @throws URLauncherException if any of the emails is improperly formatted
      */
-    @RequiresApi(Build.VERSION_CODES.R)
     @Throws(ActivityNotFoundException::class, URLauncherException::class)
     fun sendSMSMessage(phoneNumber: String, message: String) {
         if (phoneNumber.isPhoneNumberValid()) {
             val smsIntent = Intent(Intent.ACTION_SENDTO).apply {
-                type = "text/plain"
                 data = Uri.parse("smsto:$phoneNumber")
                 putExtra("sms_body", message)
-                addCategory(Intent.CATEGORY_BROWSABLE)
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REQUIRE_NON_BROWSER
+                flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REQUIRE_DEFAULT
+                } else {
+                    Intent.FLAG_ACTIVITY_NEW_TASK
+                }
             }
             context.startActivity(smsIntent)
         } else {

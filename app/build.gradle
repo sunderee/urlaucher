@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.peteralexbizjak.c2surlauncher"
-        minSdkVersion 30
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "0.0.1"

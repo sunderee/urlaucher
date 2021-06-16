@@ -1,11 +1,14 @@
 # URLauncher
 
-Simplest possible library for Android 11+ which enables
+Simplest possible native Android library which enables
 
 * Launching URL in a device's default browser
 * Launching email client with subject/receiver/body pre-filled
 * Launching phone dialer application
 * Launching messaging client with phone number and body pre-filled
+
+This library requires the minimum SDK version 23 (Android 6.0) and is available all the way up to
+Android 11 (SDK version 30).
 
 ## Usage
 
