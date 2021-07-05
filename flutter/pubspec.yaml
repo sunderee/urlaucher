@@ -1,0 +1,22 @@
+name: urlauncher
+description: Android-only Flutter plugin for launching various intents (URL, emails, phone calls/SMS messages), port of URLauncher
+version: 0.0.1
+
+environment:
+  sdk: ">=2.13.0 <3.0.0"
+  flutter: ">=1.20.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.peteralexbizjak.urlauncher
+        pluginClass: UrlauncherPlugin
